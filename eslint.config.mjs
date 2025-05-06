@@ -8,7 +8,13 @@ export default [
   {
     ignores: ["node_modules", "dist", "eslint.config.js", "webpack.common.js", "webpack.dev.js", "webpack.prod.js"],
   },
-  {languageOptions: { globals: globals.browser }},
+  {languageOptions: { globals: 
+    {
+      ...globals.browser,
+      ...globals.node,
+      ...globals.jest,
+    }
+  }},
   pluginJs.configs.recommended,
   eslintConfigPrettier,
 ];
