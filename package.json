@@ -1,0 +1,33 @@
+{
+  "name": "website-template",
+  "version": "1.0.0",
+  "description": "A template for basic website projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aish8la/Website-Template.git#main"
+  },
+  "author": "Aish Waheed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aish8la/Website-Template/issues"
+  },
+  "homepage": "https://github.com/aish8la/Website-Template/tree/main#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "globals": "^15.14.0",
+    "prettier": "3.4.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0",
+    "webpack-merge": "^6.0.1"
+  }
+}
