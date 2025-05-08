@@ -19,3 +19,22 @@ test("Ship Instance hitsTaken is 0", () => {
     const shipObject = new gameClass.Ship(4);
     expect(shipObject.hitsTaken).toBe(0);
 });
+
+test("Ship initializes with hit method", () => {
+    const shipObject = new gameClass.Ship(4);
+    expect(shipObject.hit).toBeDefined();
+});
+
+test("Ship initializes with hit method", () => {
+    const shipObject = new gameClass.Ship(4);
+    expect(shipObject.hit).toBeDefined();
+    expect(typeof shipObject.hit).toBe("function");
+});
+
+test("Ship hit method call increases hitsTaken by 1", () => {
+    const shipObject = new gameClass.Ship(4);
+    shipObject.hit();
+    expect(shipObject.hitsTaken).toBe(1);
+    shipObject.hit();
+    expect(shipObject.hitsTaken).toBe(2);
+});
