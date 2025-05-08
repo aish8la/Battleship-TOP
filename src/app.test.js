@@ -38,3 +38,19 @@ test("Ship hit method call increases hitsTaken by 1", () => {
     shipObject.hit();
     expect(shipObject.hitsTaken).toBe(2);
 });
+
+test("Ship initializes with isSunk method", () => {
+    const shipObject = new gameClass.Ship(4);
+    expect(shipObject.isSunk).toBeDefined();
+    expect(typeof shipObject.hit).toBe("function");
+});
+
+test("Ship isSunk returns true if hitsTaken and length are equal", () => {
+    const shipObject = new gameClass.Ship(4);
+    expect(shipObject.isSunk()).toBe(false);
+    shipObject.hit();
+    shipObject.hit();
+    shipObject.hit();
+    shipObject.hit();
+    expect(shipObject.isSunk()).toBe(true);
+});
