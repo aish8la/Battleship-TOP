@@ -16,8 +16,9 @@ export class Ship {
 
 export class Gameboard {
 
-  constructor() {
+  constructor(shipClass) {
     this.initializeBoard();
+    this.shipClass = shipClass;
   }
 
   boardMaxSize = [10, 10];
