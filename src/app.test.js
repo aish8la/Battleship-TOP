@@ -54,3 +54,15 @@ test("Ship isSunk returns true if hitsTaken and length are equal", () => {
     shipObject.hit();
     expect(shipObject.isSunk()).toBe(true);
 });
+
+test("Gameboard Class exists", () => {
+    expect(gameClass.Gameboard).toBeDefined();
+});
+
+test("Board initializes with board array", () => {
+    const gameBoard = new gameClass.Gameboard();
+    expect(gameBoard.board).toBeDefined();
+    expect(Array.isArray(gameBoard.board)).toBe(true);
+    expect(gameBoard.board.length).toBe(10);
+    expect(gameBoard.board[9].length).toBe(10);
+});
