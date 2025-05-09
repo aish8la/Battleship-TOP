@@ -17,6 +17,11 @@ export class Ship {
 export class Gameboard {
 
   constructor(shipClass) {
+    try {
+      new shipClass();
+    } catch {
+      return null;
+    }
     this.initializeBoard();
     this.shipClass = shipClass;
     this.fleet = this.initializeFleet();
