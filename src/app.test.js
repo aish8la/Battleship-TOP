@@ -107,3 +107,16 @@ test("Place Ship Coordinate Validation", () => {
     expect(result).not.toBeNull();
     expect(result).toBe(secondShip);
 });
+
+test("Receive Attack", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const firstShip = gameBoard.fleet[0];
+    gameBoard.placeShip(firstShip, [9,0], 'y');
+    let result = gameBoard.receiveAttack(9, 2);
+    expect(result).toBe("hit");
+    result = gameBoard.receiveAttack(9, 2);
+    expect(result).toBe("invalid");
+    expect(firstShip.hitsTaken).toBe(1);
+    result = gameBoard.receiveAttack(0, 2);
+    expect(result).toBe("miss");
+});
