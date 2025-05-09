@@ -111,5 +111,28 @@ export class Gameboard {
 
   receiveAttack(x, y) {
     if(!this.isValidCoordinate(x, y)) return this.ATTACK_RESULTS.INVALID;
+    if(this.alreadyHit(x, y)) return this.ATTACK_RESULTS.INVALID;
+
+    let attackResult = null;
+
+    if(this.shipExistAt(x, y)) {
+      this.board[x][y].hit();
+      attackResult = this.ATTACK_RESULTS.HIT;
+    } else {
+      attackResult = this.ATTACK_RESULTS.MISS;
+    }
+
+    this.recordHit(x, y, attackResult);
+    return attackResult;
+  }
+
+  alreadyHit(x, y) {
+    return this.hitBoard[x][y] !== null;
+  }
+
+  recordHit(x, y, attackResult) {
+    this.hitBoard[x][y] = {
+      result: attackResult
+    }
   }
 }
