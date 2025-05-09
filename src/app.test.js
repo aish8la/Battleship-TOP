@@ -60,7 +60,8 @@ test("Gameboard Class exists", () => {
 });
 
 test("Board initializes with board array", () => {
-    const gameBoard = new gameClass.Gameboard();
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    expect(gameBoard).not.toBeNull();
     expect(gameBoard.board).toBeDefined();
     expect(Array.isArray(gameBoard.board)).toBe(true);
     expect(gameBoard.board.length).toBe(10);
