@@ -36,7 +36,7 @@ export class Gameboard {
   }
 
   initializeBoard() {
-    this.board = Array.from( {length: this.boardMaxSize[1]}, () => this.createArray(this.boardMaxSize[0]));
+    this.board = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
   }
 
   fleetBlueprint = [5, 4, 3, 3, 2]; //The numbers in this array each represent a ship and the value of the number is the length of that ship
@@ -53,7 +53,7 @@ export class Gameboard {
   }
 
   shipExistAt(x, y) {
-    return this.board[y][x] !== null;
+    return this.board[x][y] !== null;
   }
 
   canPlaceShip(shipLength, coordinates, axisVector) {
@@ -86,7 +86,7 @@ export class Gameboard {
     if(!this.canPlaceShip(shipObj.length, startCoordinates, axis)) return null;
 
     for(let i = 0; i < shipObj.length; i++) {
-      this.board[y][x] = shipObj;
+      this.board[x][y] = shipObj;
       x += axis[0];
       y += axis[1];
     }
