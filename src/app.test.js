@@ -89,3 +89,21 @@ test("Place first ship horizontally from coordinate 0,0", () => {
     expect(gameBoard.board[4][0]).toBe(firstShip);
     expect(gameBoard.board[5][0]).toBeNull();
 });
+
+test("Place Ship Coordinate Validation", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const firstShip = gameBoard.fleet[0];
+    let result = gameBoard.placeShip(firstShip, [9,0], 'x');
+    expect(result).toBeNull();
+    result = gameBoard.placeShip(firstShip, [0,9], 'y');
+    expect(result).toBeNull();
+    result = gameBoard.placeShip(firstShip, [0,0], 'y');
+    expect(result).toBe(firstShip);
+    const secondShip = gameBoard.fleet[1];
+    result = gameBoard.placeShip(secondShip, [0,4], 'y');
+    expect(result).toBeNull();
+    expect(gameBoard.board[0][4]).toBe(firstShip);
+    result = gameBoard.placeShip(secondShip, [0,5], 'y');
+    expect(result).not.toBeNull();
+    expect(result).toBe(secondShip);
+});
