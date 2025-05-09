@@ -99,4 +99,14 @@ export class Gameboard {
     if(x >= this.boardMaxSize[0] || y >= this.boardMaxSize[1]) return false;
     return true;
   }
+
+  ATTACK_RESULTS = {
+    HIT: "hit",
+    MISS: "miss",
+    INVALID: "invalid"
+  }
+
+  receiveAttack(x, y) {
+    if(!this.isValidCoordinate(x, y)) return this.ATTACK_RESULTS.INVALID;
+  }
 }
