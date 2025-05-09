@@ -31,12 +31,15 @@ export class Gameboard {
 
   board = null;
 
+  hitBoard = null;
+
   createArray(arraySize) {
     return Array.from( {length: arraySize}, () => null);
   }
 
   initializeBoard() {
     this.board = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
+    this.hitBoard = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
   }
 
   fleetBlueprint = [5, 4, 3, 3, 2]; //The numbers in this array each represent a ship and the value of the number is the length of that ship
