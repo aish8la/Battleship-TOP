@@ -75,3 +75,17 @@ test("Board initializes with fleet array", () => {
     expect(gameBoard.fleet.length).toBe(5);
     expect(gameBoard.fleet[4].length).toBe(2);
 });
+
+test("Place first ship horizontally from coordinate 0,0", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const firstShip = gameBoard.fleet[0];
+    const result = gameBoard.placeShip(firstShip, [0,0], 'x');
+    expect(result).not.toBeNull();
+    expect(result).toBe(firstShip);
+    expect(gameBoard.board[0][0]).toBe(firstShip);
+    expect(gameBoard.board[0][1]).toBe(firstShip);
+    expect(gameBoard.board[0][2]).toBe(firstShip);
+    expect(gameBoard.board[0][3]).toBe(firstShip);
+    expect(gameBoard.board[0][4]).toBe(firstShip);
+    expect(gameBoard.board[0][5]).toBeNull();
+});
