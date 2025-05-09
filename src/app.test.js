@@ -113,10 +113,10 @@ test("Receive Attack", () => {
     const firstShip = gameBoard.fleet[0];
     gameBoard.placeShip(firstShip, [9,0], 'y');
     let result = gameBoard.receiveAttack(9, 2);
-    expect(result).toBe("hit");
+    expect(result.attackResult).toBe("hit");
     result = gameBoard.receiveAttack(9, 2);
-    expect(result).toBe("invalid");
+    expect(result.attackResult).toBe("invalid");
     expect(firstShip.hitsTaken).toBe(1);
     result = gameBoard.receiveAttack(0, 2);
-    expect(result).toBe("miss");
+    expect(result.attackResult).toBe("miss");
 });
