@@ -46,4 +46,51 @@ export class Gameboard {
       return new this.shipClass(length);
     });
   }
+
+  axisVector = {
+    'x': [1, 0],
+    'y': [0, 1]
+  }
+
+  shipExistAt(x, y) {
+    return this.board[y][x] !== null;
+  }
+
+  canPlaceShip(shipLength, coordinates, axisVector) {
+
+    let [x, y] = coordinates;
+
+    for(let i = 0; i < shipLength; i++) {
+
+      if(this.shipExistAt(x, y)) {
+        return false;
+      }
+
+      x += axisVector[0];
+      y += axisVector[1];
+    }
+    return true;
+  }
+
+  placeShip(shipObj, startCoordinates, orientation) {
+
+    let axis = null;
+    let [x, y] = startCoordinates;
+
+    if(orientation === 'x' || orientation === 'y') {
+      axis = this.axisVector[orientation];
+    } else {
+      axis = this.axisVector.x;
+    }
+
+    if(!this.canPlaceShip(shipObj.length, startCoordinates, axis)) return null;
+
+    for(let i = 0; i < shipObj.length; i++) {
+      this.board[y][x] = shipObj;
+      x += axis[0];
+      y += axis[1];
+    }
+
+    return shipObj;
+  }
 }
