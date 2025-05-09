@@ -110,20 +110,28 @@ export class Gameboard {
   }
 
   receiveAttack(x, y) {
-    if(!this.isValidCoordinate(x, y)) return this.ATTACK_RESULTS.INVALID;
-    if(this.alreadyHit(x, y)) return this.ATTACK_RESULTS.INVALID;
 
-    let attackResult = null;
+    let attackResultObject = {
+      attackResult: null,
+      isFleetSunk: false
+    };
+
+    if((!this.isValidCoordinate(x, y)) || this.alreadyHit(x, y)) {
+      attackResultObject.attackResult = this.ATTACK_RESULTS.INVALID;
+      return attackResultObject
+    }
 
     if(this.shipExistAt(x, y)) {
       this.board[x][y].hit();
-      attackResult = this.ATTACK_RESULTS.HIT;
+
+      attackResultObject.attackResult = this.ATTACK_RESULTS.HIT;
+
     } else {
-      attackResult = this.ATTACK_RESULTS.MISS;
+      attackResultObject.attackResult = this.ATTACK_RESULTS.MISS;
     }
 
-    this.recordHit(x, y, attackResult);
-    return attackResult;
+    this.recordHit(x, y, attackResultObject.attackResult);
+    return attackResultObject;
   }
 
   alreadyHit(x, y) {
