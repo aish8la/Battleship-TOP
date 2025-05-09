@@ -83,9 +83,9 @@ test("Place first ship horizontally from coordinate 0,0", () => {
     expect(result).not.toBeNull();
     expect(result).toBe(firstShip);
     expect(gameBoard.board[0][0]).toBe(firstShip);
-    expect(gameBoard.board[0][1]).toBe(firstShip);
-    expect(gameBoard.board[0][2]).toBe(firstShip);
-    expect(gameBoard.board[0][3]).toBe(firstShip);
-    expect(gameBoard.board[0][4]).toBe(firstShip);
-    expect(gameBoard.board[0][5]).toBeNull();
+    expect(gameBoard.board[1][0]).toBe(firstShip);
+    expect(gameBoard.board[2][0]).toBe(firstShip);
+    expect(gameBoard.board[3][0]).toBe(firstShip);
+    expect(gameBoard.board[4][0]).toBe(firstShip);
+    expect(gameBoard.board[5][0]).toBeNull();
 });
