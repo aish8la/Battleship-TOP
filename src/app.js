@@ -19,6 +19,7 @@ export class Gameboard {
   constructor(shipClass) {
     this.initializeBoard();
     this.shipClass = shipClass;
+    this.fleet = this.initializeFleet();
   }
 
   boardMaxSize = [10, 10];
@@ -34,4 +35,10 @@ export class Gameboard {
   }
 
   fleetBlueprint = [5, 4, 3, 3, 2]; //The numbers in this array each represent a ship and the value of the number is the length of that ship
+
+  initializeFleet() {
+    return this.fleetBlueprint.map(length => {
+      return new this.shipClass(length);
+    });
+  }
 }
