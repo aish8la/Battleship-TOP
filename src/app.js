@@ -61,7 +61,7 @@ export class Gameboard {
     let [x, y] = coordinates;
 
     for(let i = 0; i < shipLength; i++) {
-
+      if(!this.isValidCoordinate(x, y)) return false;
       if(this.shipExistAt(x, y)) {
         return false;
       }
@@ -92,5 +92,11 @@ export class Gameboard {
     }
 
     return shipObj;
+  }
+
+  isValidCoordinate(x, y) {
+    if(x < 0 || y < 0) return false;
+    if(x >= this.boardMaxSize[0] || y >= this.boardMaxSize[1]) return false;
+    return true;
   }
 }
