@@ -66,3 +66,11 @@ test("Board initializes with board array", () => {
     expect(gameBoard.board.length).toBe(10);
     expect(gameBoard.board[9].length).toBe(10);
 });
+
+test("Board initializes with fleet array", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    expect(gameBoard.fleet).toBeDefined();
+    expect(Array.isArray(gameBoard.fleet)).toBe(true);
+    expect(gameBoard.fleet.length).toBe(5);
+    expect(gameBoard.fleet[4].length).toBe(2);
+});
