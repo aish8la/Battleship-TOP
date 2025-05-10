@@ -113,7 +113,8 @@ export class Gameboard {
 
     let attackResultObject = {
       attackResult: null,
-      isFleetSunk: false
+      isFleetSunk: false,
+      hitShipSunk: false
     };
 
     if((!this.isValidCoordinate(x, y)) || this.alreadyHit(x, y)) {
@@ -122,10 +123,13 @@ export class Gameboard {
     }
 
     if(this.shipExistAt(x, y)) {
-      this.board[x][y].hit();
+      const hitShip = this.board[x][y];
+      hitShip.hit();
+      
 
       attackResultObject.isFleetSunk = this.isAllSunk();
       attackResultObject.attackResult = this.ATTACK_RESULTS.HIT;
+      attackResultObject.hitShipSunk = hitShip.isSunk();
 
     } else {
       attackResultObject.attackResult = this.ATTACK_RESULTS.MISS;
