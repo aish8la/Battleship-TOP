@@ -120,3 +120,58 @@ test("Receive Attack", () => {
     result = gameBoard.receiveAttack(0, 2);
     expect(result.attackResult).toBe("miss");
 });
+
+test("Receive Attack", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const firstShip = gameBoard.fleet[0];
+    gameBoard.placeShip(firstShip, [9,0], 'y');
+    for(let i = 0; i < firstShip.length; i++) {
+        expect(firstShip.isSunk()).toBe(false);
+        gameBoard.receiveAttack(9, i);
+    }
+    expect(firstShip.isSunk()).toBe(true);
+});
+
+test("All ship sunk", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const shipPlacements = [
+        [0, 0, 'x'], // ship of length 5 (horizontal, starts at top-left)
+        [2, 2, 'y'], // ship of length 4 (vertical)
+        [5, 0, 'x'], // ship of length 3 (horizontal)
+        [7, 4, 'y'], // ship of length 3 (vertical)
+        [8, 9, 'x'], // ship of length 2 (horizontal, safe at bottom-right edge)
+    ];
+
+    for(let i = 0; i < gameBoard.fleet.length; i++) {
+        const [x, y, orientation] = shipPlacements[i];
+        const placementResult = gameBoard.placeShip(gameBoard.fleet[i], [x,y], orientation);
+        expect(placementResult).toBe(gameBoard.fleet[i]);
+    }
+
+    const attackCoordinates = [
+        // Ship 1: [0,0] to [4,0]
+        [0, 0], [1, 0], [2, 0], [3, 0], [4, 0],
+      
+        // Ship 2: [2,2] to [2,5]
+        [2, 2], [2, 3], [2, 4], [2, 5],
+      
+        // Ship 3: [5,0] to [7,0]
+        [5, 0], [6, 0], [7, 0],
+      
+        // Ship 4: [7,4] to [7,6]
+        [7, 4], [7, 5], [7, 6],
+      
+        // Ship 5: [8,9] to [9,9]
+        [8, 9], [9, 9],
+    ];
+
+    let attackResult = [];
+    attackCoordinates.forEach(attack => {
+        const [x, y] = attack;
+        attackResult.push(gameBoard.receiveAttack(x, y));
+        expect(attackResult[attackResult.length - 1].attackResult).toBe('hit');
+    });
+
+    expect(attackResult[attackResult.length - 1].isFleetSunk).toBe(true);
+
+});
