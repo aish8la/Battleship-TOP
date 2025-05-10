@@ -124,6 +124,7 @@ export class Gameboard {
     if(this.shipExistAt(x, y)) {
       this.board[x][y].hit();
 
+      attackResultObject.isFleetSunk = this.isAllSunk();
       attackResultObject.attackResult = this.ATTACK_RESULTS.HIT;
 
     } else {
@@ -142,5 +143,12 @@ export class Gameboard {
     this.hitBoard[x][y] = {
       result: attackResult
     }
+  }
+
+  isAllSunk() {
+    for (let i = 0; i < this.fleet.length; i++) {
+      if(!this.fleet[i].isSunk()) return false;
+    }
+    return true;
   }
 }
