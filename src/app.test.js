@@ -175,3 +175,11 @@ test("All ship sunk", () => {
     expect(attackResult[attackResult.length - 1].isFleetSunk).toBe(true);
 
 });
+
+test("Player Object Initializes with gameBoard Object", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const player = new gameClass.Player(gameBoard);
+    expect(player).not.toBeNull();
+    expect(player.gameBoard).toBeDefined();
+    expect(player.gameBoard).toBe(gameBoard);
+});
