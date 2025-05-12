@@ -158,8 +158,10 @@ export class Gameboard {
 }
 
 export class Player {
-  constructor(gameBoardObject) {
+  constructor(type = "computer", playerName, gameBoardObject) {
     this.gameBoard = gameBoardObject;
+    this.type = type;
+    this.playerName = playerName;
   }
 
   
