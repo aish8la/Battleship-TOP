@@ -156,3 +156,11 @@ export class Gameboard {
     return true;
   }
 }
+
+export class Player {
+  constructor(gameBoardObject) {
+    this.gameBoard = gameBoardObject;
+  }
+
+  
+}
