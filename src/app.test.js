@@ -178,8 +178,10 @@ test("All ship sunk", () => {
 
 test("Player Object Initializes with gameBoard Object", () => {
     const gameBoard = new gameClass.Gameboard(gameClass.Ship);
-    const player = new gameClass.Player(gameBoard);
+    const player = new gameClass.Player('human', 'Player 1',gameBoard);
     expect(player).not.toBeNull();
     expect(player.gameBoard).toBeDefined();
     expect(player.gameBoard).toBe(gameBoard);
+    expect(player.type).toBe('human');
+    expect(player.playerName).toBe('Player 1');
 });
