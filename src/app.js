@@ -227,5 +227,20 @@ export class Player {
     this.shuffleList(this.placementList);
   }
   
+  randomPlacement() {
+    this.initPlacementList();
+    this.shufflePlacementList();
+    
+    while(this.unplacedShips.length) {
+      let coordinates = this.placementList.pop();
 
+      for (let directions of ['x', 'y']) {
+        let result = this.placeShipOnBoard(coordinates, directions, 0);
+        if(result) {
+          this.unplacedShips.splice(0, 1);
+          break;
+        }
+      }
+    }
+  }
 }
