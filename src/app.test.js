@@ -198,3 +198,17 @@ test("Player has a unplaced ship list", () => {
     }
 
 });
+
+test("Player can place ship from Unplaced ship list", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const player = new gameClass.Player(gameClass.PLAYER_TYPES.HUMAN, 'Player 1',gameBoard);
+    const shipPlaced = player.unplacedShips[0];
+    player.placeShipOnBoard([0, 0], 'x', 0);
+    for (let i = 0; i < shipPlaced.length; i++) {
+        const grid = gameBoard.board[i][0];
+        expect(grid).toBe(shipPlaced);
+    }
+    expect(player.unplacedShips[0]).not.toBe(shipPlaced);
+    const resultOfInvalidPlacement = player.placeShipOnBoard([3, 0], 'x', 0);
+    expect(resultOfInvalidPlacement).toBeNull();
+});
