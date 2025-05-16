@@ -25,6 +25,7 @@ export function initComputerPlayer() {
 export function startSinglePlayerGame(player1Name = "Player 1") {
     gameState.player1 = initHumanPlayer(player1Name);
     gameState.player2 = initComputerPlayer();
+    gameState.player2.randomPlacement();
 }
 
 export function start2PlayerGame(player1Name = "Player 1", player2Name = "Player 2") {
