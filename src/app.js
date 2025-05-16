@@ -174,5 +174,19 @@ export class Player {
   initUnplacedShips() {
     this.unplacedShips = [...this.gameBoard.fleet];
   }
+
+  placeShipOnBoard(coordinate, orientation, shipIndex = 0) {
+
+    const currentShip = this.unplacedShips[shipIndex];
+    if(!currentShip) return null;
+    const resultOfPlacement = this.gameBoard.placeShip(currentShip, coordinate, orientation);
+    if(!resultOfPlacement) return null;
+    this.unplacedShips.splice(shipIndex, 1);
+  }
+
+  receiveAttackFromEnemy(coordinateArr) {
+    const [x, y] = coordinateArr;
+    return this.gameBoard.receiveAttack(x, y);
+  }
   
 }
