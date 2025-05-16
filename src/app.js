@@ -166,6 +166,13 @@ export class Player {
     this.gameBoard = gameBoardObject;
     this.type = type;
     this.playerName = playerName;
+    this.initUnplacedShips();
+  }
+
+  unplacedShips = []
+
+  initUnplacedShips() {
+    this.unplacedShips = [...this.gameBoard.fleet];
   }
   
 }
