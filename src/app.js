@@ -157,12 +157,15 @@ export class Gameboard {
   }
 }
 
+export const PLAYER_TYPES = {
+    COMPUTER: "computer",
+    HUMAN: "human"
+}
 export class Player {
-  constructor(type = "computer", playerName, gameBoardObject) {
+  constructor(type = PLAYER_TYPES.COMPUTER, playerName, gameBoardObject) {
     this.gameBoard = gameBoardObject;
     this.type = type;
     this.playerName = playerName;
   }
-
   
 }
