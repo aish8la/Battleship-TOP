@@ -202,6 +202,30 @@ export class Player {
     const [x, y] = coordinateArr;
     return this.gameBoard.receiveAttack(x, y);
   }
+
+  placementList = [];
+
+  initPlacementList() {
+    this.placementList = this.gameBoard.initLocationList();
+  }
+
+  shuffleList(list) {
+    let numOfUnshuffled = list.length;
+    let randomIndex, temp;
+    
+    while(numOfUnshuffled) {
+      randomIndex = Math.floor(Math.random() * numOfUnshuffled);
+      numOfUnshuffled--;
+
+      temp = list[numOfUnshuffled];
+      list[numOfUnshuffled] = list[randomIndex];
+      list[randomIndex] = temp;
+    }
+  }
+
+  shufflePlacementList() {
+    this.shuffleList(this.placementList);
+  }
   
 
 }
