@@ -212,3 +212,32 @@ test("Player can place ship from Unplaced ship list", () => {
     const resultOfInvalidPlacement = player.placeShipOnBoard([3, 0], 'x', 0);
     expect(resultOfInvalidPlacement).toBeNull();
 });
+
+test("Place Ships at random", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const player = new gameClass.Player(gameClass.PLAYER_TYPES.HUMAN, 'Player 1',gameBoard);
+    player.randomPlacement();
+    expect(player.unplacedShips.length).toBe(0);
+
+    const countMap = new Map();
+    const board = gameBoard.board;
+    
+    for(let i = 0; i < board.length; i++) {
+        const innerArr = board[i]
+        for(let j = 0; j < innerArr.length; j++) {
+            countMap.set(board[i][j], (countMap.get(board[i][j]) ?? 0) + 1);
+        }
+    }
+
+    const shipsOnBoard = [];
+
+    countMap.forEach((value, key) => {
+        if(!key) return;
+        shipsOnBoard.push(key);
+    });
+
+    gameBoard.fleet.forEach(ship => {
+        expect(shipsOnBoard).toContain(ship);
+    });
+
+});
