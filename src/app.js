@@ -155,6 +155,20 @@ export class Gameboard {
     }
     return true;
   }
+
+  initLocationList() {
+    const list = [];
+    const [maxX, maxY] = this.boardMaxSize;
+    let x, y;
+    let i = 0;
+    for(x = 0; x < maxX; x++) {
+      for (y = 0; y < maxY; y++) {
+        list[i] = [x, y];
+        i++;
+      }
+    }
+    return list;
+  }
 }
 
 export const PLAYER_TYPES = {
@@ -189,4 +203,5 @@ export class Player {
     return this.gameBoard.receiveAttack(x, y);
   }
   
+
 }
