@@ -185,3 +185,16 @@ test("Player Object Initializes with gameBoard Object", () => {
     expect(player.type).toBe('human');
     expect(player.playerName).toBe('Player 1');
 });
+
+test("Player has a unplaced ship list", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const player = new gameClass.Player(gameClass.PLAYER_TYPES.HUMAN, 'Player 1',gameBoard);
+    expect(player.unplacedShips).toBeDefined();
+    
+    for (let i = 0; i < player.unplacedShips.length; i++) {
+        const unplacedShip = player.unplacedShips[i];
+        const shipInFleet = gameBoard.fleet[i];
+        expect(unplacedShip).toBe(shipInFleet);
+    }
+
+});
