@@ -108,6 +108,23 @@ export function attackEnemy(coordinate) {
     return result;
 }
 
+export function getBoardData() {
+    const data = {
+        ownBoard: null,
+        enemyHitBoard: null,
+    }
+
+    const currentPlayer = gameState.currentTurn
+    data.ownBoard = gameState[currentPlayer].gameBoard.getOwnBoard();
+    data.enemyHitBoard = gameState[TARGET[currentPlayer]].gameBoard.getPublicView();
+    return data;
+}
+
+export function placementData() {
+    const currentPlayer = gameState.currentTurn
+    return gameState[currentPlayer].gameBoard.getOwnBoard();
+}
+
 function randomPlayer() {
     const randomNum = Math.floor(Math.random() * 2) + 1;
     return `PLAYER${randomNum}`;
