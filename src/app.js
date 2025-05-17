@@ -181,6 +181,7 @@ export class Player {
     this.type = type;
     this.playerName = playerName;
     this.initUnplacedShips();
+    if(type === PLAYER_TYPES.COMPUTER) this.attackCoordinates = this.gameBoard.initLocationList();
   }
 
   unplacedShips = []
@@ -247,5 +248,14 @@ export class Player {
         }
       }
     }
+  }
+
+  attackCoordinates = null;
+
+  computerAttack() {
+    const numOfCoordinates = this.attackCoordinates.length;
+    if(numOfCoordinates < 0) return;
+    this.shuffleList(this.attackCoordinates);
+    return this.attackCoordinates.pop();
   }
 }
