@@ -12,6 +12,7 @@ export const gameState = {
         player2:false
     },
     currentState: null,
+    currentBoard: null
 }
 
 const PLAYERS = {
@@ -49,6 +50,7 @@ export function startSinglePlayerGame(player1Name = "Player 1") {
     gameState.player2 = initComputerPlayer();
     gameState.player2.randomPlacement();
     gameState.shipsPlaced.player2 = true;
+    gameState.currentBoard = PLAYERS.PLAYER1;
     shipPlacementHandler();
 }
 
@@ -93,7 +95,14 @@ function computerTurn() {
 }
 
 function switchTurn() {
-    gameState.currentTurn = gameState.currentTurn === PLAYERS.PLAYER1 ? PLAYERS.PLAYER2 : PLAYERS.PLAYER1;
+    if(gameState.currentTurn === PLAYERS.PLAYER1) {
+        gameState.currentTurn = PLAYERS.PLAYER2;
+    } else {
+        gameState.currentTurn = PLAYERS.PLAYER1
+    }
+    if(gameState[gameState.currentTurn].type !== PLAYER_TYPES.COMPUTER) {
+        gameState.currentBoard = gameState.currentTurn;
+    }
     computerTurn();
 }
 
@@ -114,14 +123,14 @@ export function getBoardData() {
         enemyHitBoard: null,
     }
 
-    const currentPlayer = gameState.currentTurn
+    const currentPlayer = gameState.currentBoard
     data.ownBoard = gameState[currentPlayer].gameBoard.getOwnBoard();
     data.enemyHitBoard = gameState[TARGET[currentPlayer]].gameBoard.getPublicView();
     return data;
 }
 
 export function placementData() {
-    const currentPlayer = gameState.currentTurn
+    const currentPlayer = gameState.currentBoard
     const data = gameState[currentPlayer].gameBoard.getOwnBoard();
     return data;
 }
