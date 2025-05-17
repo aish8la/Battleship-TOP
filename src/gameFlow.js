@@ -82,8 +82,7 @@ export function confirmPlacement() {
 
 function startGame() {
     gameState.currentState = STATE.GAME_PLAY;
-    const player = randomPlayer();
-    gameState.currentTurn = PLAYERS[player];
+    gameState.currentTurn = PLAYERS.PLAYER1;
     return
 }
 
@@ -100,7 +99,7 @@ function switchTurn() {
     if(gameState.currentTurn === PLAYERS.PLAYER1) {
         gameState.currentTurn = PLAYERS.PLAYER2;
     } else {
-        gameState.currentTurn = PLAYERS.PLAYER1
+        gameState.currentTurn = PLAYERS.PLAYER1;
     }
     if(gameState[gameState.currentTurn].type !== PLAYER_TYPES.COMPUTER) {
         gameState.currentBoard = gameState.currentTurn;
@@ -109,7 +108,8 @@ function switchTurn() {
 }
 
 export function attackEnemy(coordinate) {
-    const receivingPlayer = TARGET[gameState.currentTurn];
+    const target = TARGET[gameState.currentTurn];
+    const receivingPlayer = gameState[target];
     const result = receivingPlayer.receiveAttackFromEnemy(coordinate);
     if(result.attackResult !== "invalid" && !result.isFleetSunk) {
         switchTurn();
@@ -135,11 +135,6 @@ export function placementData() {
     const currentPlayer = gameState.currentBoard
     const data = gameState[currentPlayer].gameBoard.getOwnBoard();
     return data;
-}
-
-function randomPlayer() {
-    const randomNum = Math.floor(Math.random() * 2) + 1;
-    return `PLAYER${randomNum}`;
 }
 
 export function randomizePlacement() {
