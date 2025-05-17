@@ -241,3 +241,13 @@ test("Place Ships at random", () => {
     });
 
 });
+
+test("Computer Attacks Randomly", () => {
+    const gameBoard = new gameClass.Gameboard(gameClass.Ship);
+    const player = new gameClass.Player(gameClass.PLAYER_TYPES.COMPUTER, 'Player 1',gameBoard);
+    expect(player.attackCoordinates.length).toBe(100);
+    for(let i = 0; i < 100; i++) {
+        player.computerAttack();
+    }
+    expect(player.attackCoordinates.length).toBe(0);
+});
