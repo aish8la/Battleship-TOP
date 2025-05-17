@@ -50,9 +50,9 @@ function renderBoard(maxSize, data) {
     const gridCtn = elementGenerator("div", {"class": "grid-container"});
     for(let x = 0; x <= maxX - 1; x++) {
         for(let y = 0; y <= maxY - 1; y++) {
-            let classList = "grid data-column";
+            let classList = "grid";
             if(data && data[x] && data[x][y] && data[x][y].class) {
-                classList += " " + data[x][y].class;
+                classList += data[x][y].class;
             }
             const grid = elementGenerator("div", {"class": classList, "data-column": x, "data-row": y});
             gridCtn.appendChild(grid);
@@ -128,8 +128,8 @@ export function updatePlacement() {
 
 export function updateGameBoards() {
     const data = gameFlow.getBoardData();
-    updateBoard("#enemy-board", data);
-    updateBoard("#player-board", data);
+    updateBoard("#enemy-board", data.enemyHitBoard);
+    updateBoard("#player-board", data.ownBoard);
 }
 
 export function initDisplay() {
