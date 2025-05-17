@@ -175,11 +175,15 @@ export class Gameboard {
     for (let x = 0; x < this.boardMaxSize[0]; x++) {
       
       for (let y = 0; y < this.boardMaxSize[1]; y++) {
-        const hitBoardItem = this.hitBoard[x][y];
+        let hitBoardItem = "";
+        if(this.hitBoard[x] && this.hitBoard[x][y] && this.hitBoard[x][y].result) {
+          hitBoardItem = this.hitBoard[x][y].result;
+        }
+        
         const viewObj = {};
         let viewObjStr = "";
         if(this.shipExistAt(x, y)) {
-          viewObjStr += "ship";
+          viewObjStr += " ship";
           if(this.board[x][y].isSunk()) viewObjStr += " sunk";
         }
         if(hitBoardItem === "hit") viewObjStr += " hit";
@@ -196,7 +200,10 @@ export class Gameboard {
     for (let x = 0; x < this.boardMaxSize[0]; x++) {
       
       for (let y = 0; y < this.boardMaxSize[1]; y++) {
-        const hitBoardItem = this.hitBoard[x][y];
+        let hitBoardItem = "";
+        if(this.hitBoard[x] && this.hitBoard[x][y] && this.hitBoard[x][y].result) {
+          hitBoardItem = this.hitBoard[x][y].result
+        }
         const viewObj = {};
         let viewObjStr = "";
         if(this.shipExistAt(x, y)) {
