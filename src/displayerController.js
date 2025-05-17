@@ -72,3 +72,29 @@ export function renderShipPlacement() {
     wrapper.appendChild(gameCtn);
     elements.body.appendChild(wrapper);
 }
+
+export function renderGameScreen() {
+    const wrapper = elementGenerator("div", {"class": "wrapper", "id": "game-board"});
+    const messageBox = elementGenerator("div", {"id": "message-box"}, "This is a message box for notifications");
+    const gameCtn = elementGenerator("div", {"class": "in-game", "id": "game-boards"});
+    const playerBoardCtn = elementGenerator("div", {"class": "board-container", "id": "player-board"});
+    const playerBoardTitle = elementGenerator("h3", {}, "Your Board");
+    const playerBoard = renderBoard([10, 10]);
+
+    const enemyBoardCtn = elementGenerator("div", {"class": "board-container", "id": "enemy-board"});
+    const enemyBoardTitle = elementGenerator("h3", {}, "Enemy Board");
+    const enemyBoard = renderBoard([10, 10]);
+
+
+    playerBoardCtn.appendChild(playerBoardTitle);
+    playerBoardCtn.appendChild(playerBoard);
+    gameCtn.appendChild(playerBoardCtn)
+
+    enemyBoardCtn.appendChild(enemyBoardTitle);
+    enemyBoardCtn.appendChild(enemyBoard);
+    gameCtn.appendChild(enemyBoardCtn)
+
+    wrapper.appendChild(messageBox);
+    wrapper.appendChild(gameCtn);
+    elements.body.appendChild(wrapper);
+}
