@@ -48,6 +48,7 @@ export function startSinglePlayerGame(player1Name = "Player 1") {
     gameState.player1 = initHumanPlayer(player1Name);
     gameState.player2 = initComputerPlayer();
     gameState.player2.randomPlacement();
+    gameState.shipsPlaced.player2 = true;
     shipPlacementHandler();
 }
 
@@ -68,7 +69,7 @@ function shipPlacementHandler() {
     }
 }
 
-function confirmPlacement() {
+export function confirmPlacement() {
     const current = gameState.currentTurn;
     const player = gameState[current];
     if(!player.isAllShipsPlaced()) return;
@@ -83,11 +84,20 @@ function startGame() {
     return
 }
 
-function switchTurn() {
-    gameState.currentTurn = gameState.currentTurn === PLAYERS.PLAYER1 ? PLAYERS.PLAYER2 : PLAYERS.PLAYER1;
+function computerTurn() {
+    const currentPlayer = gameState[gameState.currentTurn];
+    if(currentPlayer.type === PLAYER_TYPES.COMPUTER) {
+        const coordinates = currentPlayer.computerAttack();
+        attackEnemy(coordinates);
+    }
 }
 
-function attackEnemy(coordinate) {
+function switchTurn() {
+    gameState.currentTurn = gameState.currentTurn === PLAYERS.PLAYER1 ? PLAYERS.PLAYER2 : PLAYERS.PLAYER1;
+    computerTurn();
+}
+
+export function attackEnemy(coordinate) {
     const receivingPlayer = TARGET[gameState.currentTurn];
     const result = receivingPlayer.receiveAttackFromEnemy(coordinate);
     if(result.attackResult !== "invalid" && !result.isFleetSunk) {
