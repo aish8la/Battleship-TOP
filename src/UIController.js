@@ -13,7 +13,13 @@ export function initializeEventListeners() {
             gameFlow.start2PlayerGame();
             displayControllers.updateDisplay();
         }
+        if(e.target.id === "confirm") {
+            gameFlow.confirmPlacement();
+            displayControllers.updateDisplay();
+        }
+        
     });
+
     body.addEventListener('click', (e) => {
         if(e.target.id === "randomize") {
             gameFlow.randomizePlacement();
