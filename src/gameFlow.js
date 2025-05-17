@@ -2,6 +2,7 @@ import { Ship } from './app.js';
 import { Gameboard } from './app.js';
 import { Player } from './app.js';
 import { PLAYER_TYPES } from './app.js';
+import { updateGameBoards } from './displayerController.js';
 
 export const gameState = {
     player1: null,
@@ -91,6 +92,7 @@ function computerTurn() {
     if(currentPlayer.type === PLAYER_TYPES.COMPUTER) {
         const coordinates = currentPlayer.computerAttack();
         attackEnemy(coordinates);
+        updateGameBoards();
     }
 }
 
