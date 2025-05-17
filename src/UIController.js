@@ -26,4 +26,13 @@ export function initializeEventListeners() {
             displayControllers.updatePlacement()
         }
     });
+
+    body.addEventListener('click', e => {
+        if(e.target.classList.contains("grid") && e.target.closest("#enemy-board")) {
+            const x = e.target.dataset.row;
+            const y = e.target.dataset.column;
+            gameFlow.attackEnemy([x,y]);
+            displayControllers.updateGameBoards();
+        }
+    });
 }
