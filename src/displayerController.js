@@ -48,12 +48,12 @@ export function renderHome() {
 function renderBoard(maxSize, data) {
     const [maxX, maxY] = maxSize;
     const gridCtn = elementGenerator("div", {"class": "grid-container"});
-    let classList = "grid data-column";
-    if(data.class) {
-        classList += " " + data.class;
-    }
     for(let x = 0; x <= maxX - 1; x++) {
         for(let y = 0; y <= maxY - 1; y++) {
+            let classList = "grid data-column";
+            if(data && data[x] && data[x][y] && data[x][y].class) {
+                classList += " " + data[x][y].class;
+            }
             const grid = elementGenerator("div", {"class": classList, "data-column": x, "data-row": y});
             gridCtn.appendChild(grid);
         }
@@ -118,7 +118,8 @@ export function renderGameScreen() {
 export function updateBoard(parentID, data) {
     removeFromParent(parentID,".grid-container");
     const parent = document.querySelector(parentID);
-    parent.appendChild(renderBoard([10, 10], data));
+    const newBoard = renderBoard([10, 10], data);
+    parent.appendChild(newBoard);
 }
 
 export function updatePlacement() {
