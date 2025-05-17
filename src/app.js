@@ -189,6 +189,11 @@ export class Player {
     this.unplacedShips = [...this.gameBoard.fleet];
   }
 
+  isAllShipsPlaced() {
+    if(this.unplacedShips.length > 0) return false;
+    return true;
+  }
+
   placeShipOnBoard(coordinate, orientation, shipIndex = 0) {
 
     const currentShip = this.unplacedShips[shipIndex];
