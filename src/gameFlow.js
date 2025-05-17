@@ -122,10 +122,16 @@ export function getBoardData() {
 
 export function placementData() {
     const currentPlayer = gameState.currentTurn
-    return gameState[currentPlayer].gameBoard.getOwnBoard();
+    const data = gameState[currentPlayer].gameBoard.getOwnBoard();
+    return data;
 }
 
 function randomPlayer() {
     const randomNum = Math.floor(Math.random() * 2) + 1;
     return `PLAYER${randomNum}`;
+}
+
+export function randomizePlacement() {
+    const currentPlayer = gameState.currentTurn
+    return gameState[currentPlayer].randomPlacement();
 }
