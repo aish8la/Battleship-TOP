@@ -23,6 +23,7 @@ function removeElement(selector) {
 }
 
 export function renderHome() {
+    removeElement(".wrapper");
     const wrapper = elementGenerator("div", {"class": "wrapper", "id": "home-screen"});
     const title = elementGenerator("h1", {}, "Battleship");
     const menu = elementGenerator("div", {"id": "menu-ctn"});
@@ -50,6 +51,7 @@ function renderBoard(maxSize) {
 }
 
 export function renderShipPlacement(data) {
+    removeElement(".wrapper");
     const wrapper = elementGenerator("div", {"class": "wrapper", "id": "game-board"});
     const messageBox = elementGenerator("div", {"id": "message-box"}, "This is a message box for notifications");
     const gameCtn = elementGenerator("div", {"class": "ship-placement", "id": "game-boards"});
@@ -76,6 +78,7 @@ export function renderShipPlacement(data) {
 }
 
 export function renderGameScreen() {
+    removeElement(".wrapper");
     const wrapper = elementGenerator("div", {"class": "wrapper", "id": "game-board"});
     const messageBox = elementGenerator("div", {"id": "message-box"}, "This is a message box for notifications");
     const gameCtn = elementGenerator("div", {"class": "in-game", "id": "game-boards"});
