@@ -33,3 +33,42 @@ export function renderHome() {
     wrapper.appendChild(menu);
     elements.body.appendChild(wrapper);
 }
+
+function renderBoard(maxSize) {
+    const [maxX, maxY] = maxSize;
+    const gridCtn = elementGenerator("div", {"class": "grid-container"});
+
+    for(let x = 1; x <= maxX; x++) {
+        for(let y = 1; y <= maxY; y++) {
+            const grid = elementGenerator("div", {"class": "grid", "data-column": x, "data-row": y});
+            gridCtn.appendChild(grid);
+        }
+    }
+    return gridCtn;
+}
+
+export function renderShipPlacement() {
+    const wrapper = elementGenerator("div", {"class": "wrapper", "id": "game-board"});
+    const messageBox = elementGenerator("div", {"id": "message-box"}, "This is a message box for notifications");
+    const gameCtn = elementGenerator("div", {"class": "ship-placement", "id": "game-boards"});
+    const gameBoards = elementGenerator("div", {"class": "board-container", "id": "player-board"});
+    const screenTitle = elementGenerator("h3", {}, "Place Ship");
+    const board = renderBoard([10, 10]);
+
+    const menu = elementGenerator("div", {"id": "button-ctn"});
+    const button1 = elementGenerator("button", {"id": "toggle-orientation"}, "Toggle Orientation");
+    const button2 = elementGenerator("button", {"id": "randomize"}, "Randomize");
+    const button3 = elementGenerator("button", {"id": "confirm"}, "Confirm Placement");
+
+    menu.appendChild(button1);
+    menu.appendChild(button2);
+    menu.appendChild(button3);
+
+    gameBoards.appendChild(screenTitle);
+    gameBoards.appendChild(board);
+    gameCtn.appendChild(gameBoards)
+    gameCtn.appendChild(menu);
+    wrapper.appendChild(messageBox);
+    wrapper.appendChild(gameCtn);
+    elements.body.appendChild(wrapper);
+}
