@@ -24,7 +24,7 @@ const TARGET = {
     player2: PLAYERS.PLAYER1 
 }
 
-const STATE = {
+export const STATE = {
     SHIP_PLACEMENT: 'shipPlacement',
     GAME_PLAY: 'gamePlay',
     GAME_OVER: 'gameOver'
@@ -34,12 +34,12 @@ function initGameboard() {
     return new Gameboard(Ship);
 }
 
-export function initHumanPlayer(humanName) {
+function initHumanPlayer(humanName) {
     const gameBoard = initGameboard();
     return new Player(PLAYER_TYPES.HUMAN, humanName, gameBoard);
 }
 
-export function initComputerPlayer() {
+function initComputerPlayer() {
     const gameBoard = initGameboard();
     return new Player(PLAYER_TYPES.COMPUTER, "Computer", gameBoard);
 }
