@@ -236,6 +236,11 @@ export class Player {
     return true;
   }
 
+  clearBoard() {
+    this.initUnplacedShips();
+    this.gameBoard.initializeBoard();
+  }
+
   placeShipOnBoard(coordinate, orientation, shipIndex = 0) {
 
     const currentShip = this.unplacedShips[shipIndex];
@@ -275,6 +280,10 @@ export class Player {
   }
   
   randomPlacement() {
+    if(this.unplacedShips.length < this.gameBoard.fleet.length) {
+      this.clearBoard();
+    }
+    
     this.initPlacementList();
     this.shufflePlacementList();
     
