@@ -126,6 +126,12 @@ export function updatePlacement() {
     updateBoard("#ship-placement", data);
 }
 
+export function updateGameBoards() {
+    const data = gameFlow.getBoardData();
+    updateBoard("#enemy-board", data);
+    updateBoard("#player-board", data);
+}
+
 export function initDisplay() {
     renderHome();
 }
@@ -137,6 +143,5 @@ export function updateDisplay() {
     if(gameFlow.gameState.currentState === gameFlow.STATE.GAME_PLAY) {
         const data = gameFlow.getBoardData();
         renderGameScreen(data);
-        console.log(gameFlow.gameState.currentTurn);
     }
 }
