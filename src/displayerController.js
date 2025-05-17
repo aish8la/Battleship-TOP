@@ -1,3 +1,5 @@
+import * as gameFlow from "./gameFlow.js";
+
 const elements = {
     body: document.querySelector('body'),
 }
@@ -47,7 +49,7 @@ function renderBoard(maxSize) {
     return gridCtn;
 }
 
-export function renderShipPlacement() {
+export function renderShipPlacement(data) {
     const wrapper = elementGenerator("div", {"class": "wrapper", "id": "game-board"});
     const messageBox = elementGenerator("div", {"id": "message-box"}, "This is a message box for notifications");
     const gameCtn = elementGenerator("div", {"class": "ship-placement", "id": "game-boards"});
@@ -97,4 +99,15 @@ export function renderGameScreen() {
     wrapper.appendChild(messageBox);
     wrapper.appendChild(gameCtn);
     elements.body.appendChild(wrapper);
+}
+
+export function initDisplay() {
+    renderHome();
+}
+
+export function updateDisplay() {
+    if(gameFlow.gameState.currentState === gameFlow.STATE.SHIP_PLACEMENT) {
+        const data = gameFlow.placementData();
+        renderShipPlacement(data);
+    }
 }
