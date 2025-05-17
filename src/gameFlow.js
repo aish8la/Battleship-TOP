@@ -73,7 +73,7 @@ export function confirmPlacement() {
     const current = gameState.currentTurn;
     const player = gameState[current];
     if(!player.isAllShipsPlaced()) return;
-    gameState.shipsPlaced[player] = true;
+    gameState.shipsPlaced[current] = true;
     shipPlacementHandler();
 }
 
