@@ -169,6 +169,47 @@ export class Gameboard {
     }
     return list;
   }
+
+  getOwnBoard() {
+    const ownBoard = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
+    for (let x = 0; x < this.boardMaxSize[0]; x++) {
+      
+      for (let y = 0; y < this.boardMaxSize[1]; y++) {
+        const hitBoardItem = this.hitBoard[x][y];
+        const viewObj = {};
+        let viewObjStr = "";
+        if(this.shipExistAt(x, y)) {
+          viewObjStr += "ship";
+          if(this.board[x][y].isSunk()) viewObjStr += " sunk";
+        }
+        if(hitBoardItem === "hit") viewObjStr += " hit";
+        if(hitBoardItem === "miss") viewObjStr += " miss";
+        viewObj.class = viewObjStr;
+        ownBoard[x][y] = viewObj;
+      }
+    }
+    return ownBoard;
+  }
+
+  getPublicView() {
+    const publicBoard = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
+    for (let x = 0; x < this.boardMaxSize[0]; x++) {
+      
+      for (let y = 0; y < this.boardMaxSize[1]; y++) {
+        const hitBoardItem = this.hitBoard[x][y];
+        const viewObj = {};
+        let viewObjStr = "";
+        if(this.shipExistAt(x, y)) {
+          if(this.board[x][y].isSunk()) viewObjStr += " sunk";
+        }
+        if(hitBoardItem === "hit") viewObjStr += " hit";
+        if(hitBoardItem === "miss") viewObjStr += " miss";
+        viewObj.class = viewObjStr;
+        publicBoard[x][y] = viewObj;
+      }
+    }
+    return publicBoard;
+  }
 }
 
 export const PLAYER_TYPES = {
