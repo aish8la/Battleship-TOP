@@ -88,19 +88,18 @@ export function renderShipPlacement(data) {
     elements.body.appendChild(wrapper);
 }
 
-export function renderGameScreen() {
+export function renderGameScreen(data) {
     removeElement(".wrapper");
     const wrapper = elementGenerator("div", {"class": "wrapper", "id": "game-board"});
     const messageBox = elementGenerator("div", {"id": "message-box"}, "This is a message box for notifications");
     const gameCtn = elementGenerator("div", {"class": "in-game", "id": "game-boards"});
     const playerBoardCtn = elementGenerator("div", {"class": "board-container", "id": "player-board"});
     const playerBoardTitle = elementGenerator("h3", {}, "Your Board");
-    const playerBoard = renderBoard([10, 10]);
+    const playerBoard = renderBoard([10, 10], data.ownBoard);
 
     const enemyBoardCtn = elementGenerator("div", {"class": "board-container", "id": "enemy-board"});
     const enemyBoardTitle = elementGenerator("h3", {}, "Enemy Board");
-    const enemyBoard = renderBoard([10, 10]);
-
+    const enemyBoard = renderBoard([10, 10], data.enemyHitBoard);
 
     playerBoardCtn.appendChild(playerBoardTitle);
     playerBoardCtn.appendChild(playerBoard);
@@ -134,5 +133,10 @@ export function initDisplay() {
 export function updateDisplay() {
     if(gameFlow.gameState.currentState === gameFlow.STATE.SHIP_PLACEMENT) {
         renderShipPlacement({});
+    }
+    if(gameFlow.gameState.currentState === gameFlow.STATE.GAME_PLAY) {
+        const data = gameFlow.getBoardData();
+        renderGameScreen(data);
+        console.log(gameFlow.gameState.currentTurn);
     }
 }
