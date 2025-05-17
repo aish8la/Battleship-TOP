@@ -54,7 +54,7 @@ function renderBoard(maxSize, data) {
             if(data && data[x] && data[x][y] && data[x][y].class) {
                 classList += data[x][y].class;
             }
-            const grid = elementGenerator("div", {"class": classList, "data-column": x, "data-row": y});
+            const grid = elementGenerator("div", {"class": classList, "data-column": y, "data-row": x});
             gridCtn.appendChild(grid);
         }
     }
