@@ -32,7 +32,6 @@ export function initializeEventListeners() {
             const x = e.target.dataset.row;
             const y = e.target.dataset.column;
             gameFlow.attackEnemy([x,y]);
-            displayControllers.updateGameBoards();
         }
     });
 }

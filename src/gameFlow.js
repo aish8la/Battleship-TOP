@@ -91,7 +91,6 @@ function computerTurn() {
     if(currentPlayer.type === PLAYER_TYPES.COMPUTER) {
         const coordinates = currentPlayer.computerAttack();
         attackEnemy(coordinates);
-        pubsub.publish("updateDisplay", "");
     }
 }
 
@@ -112,9 +111,11 @@ export function attackEnemy(coordinate) {
     const receivingPlayer = gameState[target];
     const result = receivingPlayer.receiveAttackFromEnemy(coordinate);
     if(result.attackResult !== "invalid" && !result.isFleetSunk) {
+        pubsub.publish("updateBoard","");
         switchTurn();
     } else if(result.isFleetSunk) {
         gameState.currentState = STATE.GAME_OVER;
+        pubsub.publish("updateDisplay","");
     }
     return result;
 }
