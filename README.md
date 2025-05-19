@@ -1,159 +1,51 @@
-# **Webpack Template Repository**
+# 🎯 Battleship Game
 
-This repository serves as a **template for Webpack projects**. It provides a structured Webpack setup with support for **CSS, images, and HTML**, ensuring easy configuration and extensibility.
-
----
-
-## **1. Installing Required Dependencies and Configurations**
-
-### **1.1 CSS Loaders (For Processing CSS Files)**
-
-#### Installation:
-```bash
-npm install --save-dev style-loader css-loader
-```
-
-#### Configuration:
-Modify `webpack.common.js` to include the CSS processing rules:
-
-```javascript
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-    ],
-  },
-};
-```
-
-### **1.2 HtmlWebpackPlugin (For Generating HTML Files and Injecting Scripts)**
-
-#### Installation:
-```bash
-npm install --save-dev html-webpack-plugin
-```
-
-#### Configuration:
-Modify `webpack.common.js` to include the HTML plugin:
-
-```javascript
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-
-module.exports = {
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
-    }),
-  ],
-};
-```
-
-### **1.3 HTML Loader (For Importing HTML Files in JavaScript)**
-
-#### Installation:
-```bash
-npm install --save-dev html-loader
-```
-
-#### Configuration:
-Modify `webpack.common.js` to include HTML processing:
-
-```javascript
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.html$/i,
-        loader: "html-loader",
-      },
-    ],
-  },
-};
-```
-
-### **1.4 Asset Modules (For Handling Images and Static Files)**
-
-#### Installation:
-```bash
-npm install --save-dev file-loader
-```
-
-#### Configuration:
-Modify `webpack.common.js` to handle images and static files:
-
-```javascript
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
-      },
-    ],
-  },
-};
-```
-
-### **1.5 Babel Loader (For Transpiling Modern JavaScript)**
-
-#### Installation:
-```bash
-npm install -D babel-loader @babel/core @babel/preset-env webpack
-```
-
-#### Configuration:
-Modify `webpack.common.js` to include Babel processing:
-
-```javascript
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.(?:js|mjs|cjs)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            targets: "defaults",
-            presets: [
-              ['@babel/preset-env']
-            ]
-          }
-        }
-      }
-    ]
-  }
-};
-```
+A web-based Battleship game built using JavaScript, HTML, and CSS as part of [The Odin Project](https://www.theodinproject.com/) curriculum. This implementation features a playable single-player mode with a modular architecture and dynamic UI updates powered by Webpack.
 
 ---
 
-## **2. Project Structure**
-Ensure your project has the following structure:
+## 🚀 Features
+
+- **Single Player Mode** – Play against a basic computer opponent.
+- **Random Ship Placement** – Ships are placed randomly without overlaps or out-of-bound errors.
+- **Turn-Based Gameplay** – Players alternate turns attacking each other's grids.
+- **Endgame Detection** – Automatically declares the winner when a fleet is destroyed.
+- **Dynamic UI** – Renders game screens and boards dynamically based on the game state.
+- **Visual Feedback** – Distinct styles for hits, misses, and sunk ships.
+- **Pub-Sub Architecture** – Decouples UI rendering from game logic for easier maintenance.
+- **Fully Modular Codebase** – Clean separation of responsibilities across modules.
+
+---
+
+## 🧩 Project Structure
+
 ```
-my-project/
+
 ├── src/
-│   ├── index.js
-│   ├── index.html
-│   ├── styles.css
-│   ├── assets/
-│   │   ├── image.png
-├── dist/
-├── package.json
-├── webpack.common.js
-├── webpack.dev.js
-├── webpack.prod.js
-```
+│   ├── app.js                # Game logic: Ship, Gameboard, Player
+│   ├── gameFlow\.js           # Orchestrates game state and transitions
+│   ├── displayerController.js # Renders UI and updates game board
+│   ├── UIController.js       # Sets up user interaction event listeners
+│   ├── pubsub.js             # Pub-Sub system for event messaging
+│   ├── index.js              # Entry point
+│   ├── index.html            # Main HTML template
+│   └── style.css             # Styling for layout and game boards
+
+````
 
 ---
 
-## **3. Available npm Scripts**
+## ⚙️ Development & Build Setup
 
-Modify `package.json` to include useful scripts:
+This project uses a custom **Webpack 5** template to manage assets and streamline development.
+
+### 📦 Install Dependencies
+
+```bash
+npm install
+````
+
+### 🔧 Available Scripts
 
 ```json
 "scripts": {
@@ -164,24 +56,54 @@ Modify `package.json` to include useful scripts:
 }
 ```
 
-#### **Script Descriptions:**
-- **`start`** → Runs the Webpack development server with live reloading.
-- **`build`** → Creates a production-ready bundle.
-- **`lint`** → Runs ESLint for code quality checks.
-- **`format`** → Uses Prettier to format the code.
+| Script   | Description                         |
+| -------- | ----------------------------------- |
+| `start`  | Launches the development server     |
+| `build`  | Generates a production-ready bundle |
+| `lint`   | Runs ESLint for code quality checks |
+| `format` | Formats code using Prettier         |
 
----
+### 🚀 Build for Production
 
-## **4. Running Webpack**
-
-After installing dependencies and configuring Webpack, start the development server:
-```bash
-npm run start
-```
-Or create a production build:
 ```bash
 npm run build
 ```
 
-Your Webpack project is now set up with **CSS, HTML, images, and essential scripts** for a streamlined workflow! 🚀
+This generates a bundled version of the app in the `dist/` directory, ready to be deployed on any static web host.
 
+---
+
+## 🧠 Game Rules
+
+* Each player has a 10×10 grid and five ships (lengths: 5, 4, 3, 3, 2).
+* Players take turns choosing coordinates to attack.
+* Hits, misses, and sunk ships are visually represented.
+* The first player to sink all opponent ships wins.
+
+---
+
+## 📝 To-Do / Incomplete Features
+
+The following features were considered but are not yet implemented:
+
+* [ ] **Drag-and-Drop Ship Placement**
+* [ ] **2-Player Local Mode** (hot seat on same machine)
+* [ ] **Smarter Computer AI** (targeting adjacent cells after a hit)
+* [ ] **Manual Ship Placement with Clicks**
+* [ ] **Messages indicating state of game**
+* [ ] **Game Reset Button / Replay Flow**
+
+These features may be explored in future iterations.
+
+---
+
+## 👤 Author
+
+**Aish Waheed**
+*Student at [The Odin Project](https://www.theodinproject.com/)*
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
