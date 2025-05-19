@@ -1,4 +1,5 @@
 import * as gameFlow from "./gameFlow.js";
+import { pubsub } from "./pubsub.js";
 
 const elements = {
     body: document.querySelector('body'),
@@ -145,3 +146,5 @@ export function updateDisplay() {
         renderGameScreen(data);
     }
 }
+
+pubsub.subscribe("updateDisplay", updateDisplay);
