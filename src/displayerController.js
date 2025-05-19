@@ -115,6 +115,19 @@ export function renderGameScreen(data) {
     elements.body.appendChild(wrapper);
 }
 
+function renderInterruptBox(title, message) {
+    removeElement(".wrapper");
+    const wrapper = elementGenerator("div", {"class": "wrapper", "id": "interrupt"});
+    const interruptBox = elementGenerator("div", {"id": "interrupt-box"});
+    const titleElement = elementGenerator("h3", {"id": "interrupt-title"}, title);
+    const msgElement = elementGenerator("p", {"id": "interrupt-message"}, message);
+
+    wrapper.appendChild(interruptBox);
+    interruptBox.appendChild(titleElement);
+    interruptBox.appendChild(msgElement);
+    elements.body.appendChild(wrapper);
+}
+
 export function updateBoard(parentID, data) {
     removeFromParent(parentID,".grid-container");
     const parent = document.querySelector(parentID);
@@ -144,6 +157,11 @@ export function updateDisplay() {
     if(gameFlow.gameState.currentState === gameFlow.STATE.GAME_PLAY) {
         const data = gameFlow.getBoardData();
         renderGameScreen(data);
+    }
+    if(gameFlow.gameState.currentState === gameFlow.STATE.GAME_OVER) {
+        const winning = gameFlow.gameState.currentTurn;
+        const winnerName = gameFlow.gameState[winning]?.playerName;
+        renderInterruptBox("Game Over", `${winnerName} Wins`);
     }
 }
 
