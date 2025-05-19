@@ -1,150 +1,151 @@
 * {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(219, 255, 255);
-    height: 100vh;
-    gap: 20px;
-    padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 255, 255);
+  height: 100vh;
+  gap: 20px;
+  padding: 1em;
 }
 
 #menu-ctn {
-    border-radius: 8px;
-    border: 2px solid rgb(0, 157, 105);
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    align-items: center;
-    justify-content: center;
-    padding: 3em 6em;
+  border-radius: 8px;
+  border: 2px solid rgb(0, 157, 105);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  padding: 3em 6em;
 }
 
 button {
-    padding: 1em 1.5em;
-    min-width: 15em;
-    background-color: aquamarine;
-    border: 2px solid rgb(0, 157, 105);
-    border-radius: 8px;
-    transition: 0.3s background-color ease-in-out;
+  padding: 1em 1.5em;
+  min-width: 15em;
+  background-color: aquamarine;
+  border: 2px solid rgb(0, 157, 105);
+  border-radius: 8px;
+  transition: 0.3s background-color ease-in-out;
 }
 
 button:hover {
-    background-color: aqua;
-    cursor: pointer;
+  background-color: aqua;
+  cursor: pointer;
 }
 
-
 .grid-container {
-    display: grid;
-    border: 2px solid rgb(0, 157, 105);
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-columns: repeat(10, 1fr);
+  display: grid;
+  border: 2px solid rgb(0, 157, 105);
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
 }
 
 .grid {
-    border: 1px solid rgba(0, 157, 105, 0.536);
-    width: 46px;
-    height: auto;
-    aspect-ratio: 1;
+  border: 1px solid rgba(0, 157, 105, 0.536);
+  width: 46px;
+  height: auto;
+  aspect-ratio: 1;
 }
 
 #game-boards {
-    display: flex;
-    gap: 36px;
-    width: 100%;
-    justify-content: space-evenly;
+  display: flex;
+  gap: 36px;
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 .board-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
 #message-box {
-    border-radius: 8px;
-    border: 2px solid rgb(0, 157, 105);
-    padding: 1em 2em;
-    width: 100%;
-    min-height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  border-radius: 8px;
+  border: 2px solid rgb(0, 157, 105);
+  padding: 1em 2em;
+  width: 100%;
+  min-height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wrapper#game-board {
-    padding: 5em;
+  padding: 5em;
 }
 
 .grid-container > .grid.ship {
-    background-color: aquamarine;
+  background-color: aquamarine;
 }
 
 .grid-container > .grid.hit {
-    background-color: rgba(255, 126, 132, 0.763);
+  background-color: rgba(255, 126, 132, 0.763);
 }
 
 .grid-container > .grid.miss {
-    background-color: rgba(199, 199, 199, 0.763);
+  background-color: rgba(199, 199, 199, 0.763);
 }
 
 .grid-container > .grid.sunk {
-    position: relative;
-    background-color: rgba(255, 126, 132, 0.763);
-    border: 2px solid red;
+  position: relative;
+  background-color: rgba(255, 126, 132, 0.763);
+  border: 2px solid red;
 }
 
 .grid-container > .grid.sunk::after,
 .grid-container > .grid.sunk::before {
-    content: '';
-    position: absolute;
-    width: calc(100% * 1.4142); /*√2 × 100% so that the cross touches the boarders*/
-    height: 1.5px;
-    background-color: red;
-    top: 50%;
-    left: 50%;
-    transform-origin: center;
+  content: "";
+  position: absolute;
+  width: calc(
+    100% * 1.4142
+  ); /*√2 × 100% so that the cross touches the boarders*/
+  height: 1.5px;
+  background-color: red;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
 }
 
 .grid-container > .grid.sunk::after {
-    transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .grid-container > .grid.sunk::before {
-    transform: translate(-50%, -50%) rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 #button-ctn {
-    border-radius: 8px;
-    border: 2px solid rgb(0, 157, 105);
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    align-items: center;
-    justify-content: center;
-    padding: 3em 6em;
+  border-radius: 8px;
+  border: 2px solid rgb(0, 157, 105);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  padding: 3em 6em;
 }
 
 #interrupt-box {
-    border-radius: 8px;
-    border: 2px solid rgb(0, 157, 105);
-    padding: 1em 2em;
-    width: 70%;
-    min-height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+  border-radius: 8px;
+  border: 2px solid rgb(0, 157, 105);
+  padding: 1em 2em;
+  width: 70%;
+  min-height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }

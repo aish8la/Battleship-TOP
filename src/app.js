@@ -1,21 +1,20 @@
 export class Ship {
-    constructor(length) {
-        this.length = length;
-    }
+  constructor(length) {
+    this.length = length;
+  }
 
-    hitsTaken = 0;
+  hitsTaken = 0;
 
-    hit() {
-        this.hitsTaken++;
-    }
+  hit() {
+    this.hitsTaken++;
+  }
 
-    isSunk() {
-        return this.length === this.hitsTaken;
-    }
+  isSunk() {
+    return this.length === this.hitsTaken;
+  }
 }
 
 export class Gameboard {
-
   constructor(shipClass) {
     try {
       new shipClass();
@@ -34,38 +33,41 @@ export class Gameboard {
   hitBoard = null;
 
   createArray(arraySize) {
-    return Array.from( {length: arraySize}, () => null);
+    return Array.from({ length: arraySize }, () => null);
   }
 
   initializeBoard() {
-    this.board = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
-    this.hitBoard = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
+    this.board = Array.from({ length: this.boardMaxSize[0] }, () =>
+      this.createArray(this.boardMaxSize[1]),
+    );
+    this.hitBoard = Array.from({ length: this.boardMaxSize[0] }, () =>
+      this.createArray(this.boardMaxSize[1]),
+    );
   }
 
   fleetBlueprint = [5, 4, 3, 3, 2]; //The numbers in this array each represent a ship and the value of the number is the length of that ship
 
   initializeFleet() {
-    return this.fleetBlueprint.map(length => {
+    return this.fleetBlueprint.map((length) => {
       return new this.shipClass(length);
     });
   }
 
   axisVector = {
-    'x': [1, 0],
-    'y': [0, 1]
-  }
+    x: [1, 0],
+    y: [0, 1],
+  };
 
   shipExistAt(x, y) {
     return this.board[x][y] !== null;
   }
 
   canPlaceShip(shipLength, coordinates, axisVector) {
-
     let [x, y] = coordinates;
 
-    for(let i = 0; i < shipLength; i++) {
-      if(!this.isValidCoordinate(x, y)) return false;
-      if(this.shipExistAt(x, y)) {
+    for (let i = 0; i < shipLength; i++) {
+      if (!this.isValidCoordinate(x, y)) return false;
+      if (this.shipExistAt(x, y)) {
         return false;
       }
 
@@ -76,19 +78,18 @@ export class Gameboard {
   }
 
   placeShip(shipObj, startCoordinates, orientation) {
-
     let axis = null;
     let [x, y] = startCoordinates;
 
-    if(orientation === 'x' || orientation === 'y') {
+    if (orientation === "x" || orientation === "y") {
       axis = this.axisVector[orientation];
     } else {
       axis = this.axisVector.x;
     }
 
-    if(!this.canPlaceShip(shipObj.length, startCoordinates, axis)) return null;
+    if (!this.canPlaceShip(shipObj.length, startCoordinates, axis)) return null;
 
-    for(let i = 0; i < shipObj.length; i++) {
+    for (let i = 0; i < shipObj.length; i++) {
       this.board[x][y] = shipObj;
       x += axis[0];
       y += axis[1];
@@ -98,39 +99,36 @@ export class Gameboard {
   }
 
   isValidCoordinate(x, y) {
-    if(x < 0 || y < 0) return false;
-    if(x >= this.boardMaxSize[0] || y >= this.boardMaxSize[1]) return false;
+    if (x < 0 || y < 0) return false;
+    if (x >= this.boardMaxSize[0] || y >= this.boardMaxSize[1]) return false;
     return true;
   }
 
   ATTACK_RESULTS = {
     HIT: "hit",
     MISS: "miss",
-    INVALID: "invalid"
-  }
+    INVALID: "invalid",
+  };
 
   receiveAttack(x, y) {
-
     let attackResultObject = {
       attackResult: null,
       isFleetSunk: false,
-      hitShipSunk: false
+      hitShipSunk: false,
     };
 
-    if((!this.isValidCoordinate(x, y)) || this.alreadyHit(x, y)) {
+    if (!this.isValidCoordinate(x, y) || this.alreadyHit(x, y)) {
       attackResultObject.attackResult = this.ATTACK_RESULTS.INVALID;
-      return attackResultObject
+      return attackResultObject;
     }
 
-    if(this.shipExistAt(x, y)) {
+    if (this.shipExistAt(x, y)) {
       const hitShip = this.board[x][y];
       hitShip.hit();
-      
 
       attackResultObject.isFleetSunk = this.isAllSunk();
       attackResultObject.attackResult = this.ATTACK_RESULTS.HIT;
       attackResultObject.hitShipSunk = hitShip.isSunk();
-
     } else {
       attackResultObject.attackResult = this.ATTACK_RESULTS.MISS;
     }
@@ -145,13 +143,13 @@ export class Gameboard {
 
   recordHit(x, y, attackResult) {
     this.hitBoard[x][y] = {
-      result: attackResult
-    }
+      result: attackResult,
+    };
   }
 
   isAllSunk() {
     for (let i = 0; i < this.fleet.length; i++) {
-      if(!this.fleet[i].isSunk()) return false;
+      if (!this.fleet[i].isSunk()) return false;
     }
     return true;
   }
@@ -161,7 +159,7 @@ export class Gameboard {
     const [maxX, maxY] = this.boardMaxSize;
     let x, y;
     let i = 0;
-    for(x = 0; x < maxX; x++) {
+    for (x = 0; x < maxX; x++) {
       for (y = 0; y < maxY; y++) {
         list[i] = [x, y];
         i++;
@@ -171,23 +169,28 @@ export class Gameboard {
   }
 
   getOwnBoard() {
-    const ownBoard = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
+    const ownBoard = Array.from({ length: this.boardMaxSize[0] }, () =>
+      this.createArray(this.boardMaxSize[1]),
+    );
     for (let x = 0; x < this.boardMaxSize[0]; x++) {
-      
       for (let y = 0; y < this.boardMaxSize[1]; y++) {
         let hitBoardItem = "";
-        if(this.hitBoard[x] && this.hitBoard[x][y] && this.hitBoard[x][y].result) {
+        if (
+          this.hitBoard[x] &&
+          this.hitBoard[x][y] &&
+          this.hitBoard[x][y].result
+        ) {
           hitBoardItem = this.hitBoard[x][y].result;
         }
-        
+
         const viewObj = {};
         let viewObjStr = "";
-        if(this.shipExistAt(x, y)) {
+        if (this.shipExistAt(x, y)) {
           viewObjStr += " ship";
-          if(this.board[x][y].isSunk()) viewObjStr += " sunk";
+          if (this.board[x][y].isSunk()) viewObjStr += " sunk";
         }
-        if(hitBoardItem === "hit") viewObjStr += " hit";
-        if(hitBoardItem === "miss") viewObjStr += " miss";
+        if (hitBoardItem === "hit") viewObjStr += " hit";
+        if (hitBoardItem === "miss") viewObjStr += " miss";
         viewObj.class = viewObjStr;
         ownBoard[x][y] = viewObj;
       }
@@ -196,21 +199,26 @@ export class Gameboard {
   }
 
   getPublicView() {
-    const publicBoard = Array.from( {length: this.boardMaxSize[0]}, () => this.createArray(this.boardMaxSize[1]));
+    const publicBoard = Array.from({ length: this.boardMaxSize[0] }, () =>
+      this.createArray(this.boardMaxSize[1]),
+    );
     for (let x = 0; x < this.boardMaxSize[0]; x++) {
-      
       for (let y = 0; y < this.boardMaxSize[1]; y++) {
         let hitBoardItem = "";
-        if(this.hitBoard[x] && this.hitBoard[x][y] && this.hitBoard[x][y].result) {
-          hitBoardItem = this.hitBoard[x][y].result
+        if (
+          this.hitBoard[x] &&
+          this.hitBoard[x][y] &&
+          this.hitBoard[x][y].result
+        ) {
+          hitBoardItem = this.hitBoard[x][y].result;
         }
         const viewObj = {};
         let viewObjStr = "";
-        if(this.shipExistAt(x, y)) {
-          if(this.board[x][y].isSunk()) viewObjStr += " sunk";
+        if (this.shipExistAt(x, y)) {
+          if (this.board[x][y].isSunk()) viewObjStr += " sunk";
         }
-        if(hitBoardItem === "hit") viewObjStr += " hit";
-        if(hitBoardItem === "miss") viewObjStr += " miss";
+        if (hitBoardItem === "hit") viewObjStr += " hit";
+        if (hitBoardItem === "miss") viewObjStr += " miss";
         viewObj.class = viewObjStr;
         publicBoard[x][y] = viewObj;
       }
@@ -220,26 +228,27 @@ export class Gameboard {
 }
 
 export const PLAYER_TYPES = {
-    COMPUTER: "computer",
-    HUMAN: "human"
-}
+  COMPUTER: "computer",
+  HUMAN: "human",
+};
 export class Player {
   constructor(type = PLAYER_TYPES.COMPUTER, playerName, gameBoardObject) {
     this.gameBoard = gameBoardObject;
     this.type = type;
     this.playerName = playerName;
     this.initUnplacedShips();
-    if(type === PLAYER_TYPES.COMPUTER) this.attackCoordinates = this.gameBoard.initLocationList();
+    if (type === PLAYER_TYPES.COMPUTER)
+      this.attackCoordinates = this.gameBoard.initLocationList();
   }
 
-  unplacedShips = []
+  unplacedShips = [];
 
   initUnplacedShips() {
     this.unplacedShips = [...this.gameBoard.fleet];
   }
 
   isAllShipsPlaced() {
-    if(this.unplacedShips.length > 0) return false;
+    if (this.unplacedShips.length > 0) return false;
     return true;
   }
 
@@ -249,11 +258,14 @@ export class Player {
   }
 
   placeShipOnBoard(coordinate, orientation, shipIndex = 0) {
-
     const currentShip = this.unplacedShips[shipIndex];
-    if(!currentShip) return null;
-    const resultOfPlacement = this.gameBoard.placeShip(currentShip, coordinate, orientation);
-    if(!resultOfPlacement) return null;
+    if (!currentShip) return null;
+    const resultOfPlacement = this.gameBoard.placeShip(
+      currentShip,
+      coordinate,
+      orientation,
+    );
+    if (!resultOfPlacement) return null;
     this.unplacedShips.splice(shipIndex, 1);
   }
 
@@ -271,8 +283,8 @@ export class Player {
   shuffleList(list) {
     let numOfUnshuffled = list.length;
     let randomIndex, temp;
-    
-    while(numOfUnshuffled) {
+
+    while (numOfUnshuffled) {
       randomIndex = Math.floor(Math.random() * numOfUnshuffled);
       numOfUnshuffled--;
 
@@ -285,21 +297,21 @@ export class Player {
   shufflePlacementList() {
     this.shuffleList(this.placementList);
   }
-  
+
   randomPlacement() {
-    if(this.unplacedShips.length < this.gameBoard.fleet.length) {
+    if (this.unplacedShips.length < this.gameBoard.fleet.length) {
       this.clearBoard();
     }
-    
+
     this.initPlacementList();
     this.shufflePlacementList();
-    
-    while(this.unplacedShips.length) {
+
+    while (this.unplacedShips.length) {
       let coordinates = this.placementList.pop();
 
-      for (let directions of ['x', 'y']) {
+      for (let directions of ["x", "y"]) {
         let result = this.placeShipOnBoard(coordinates, directions, 0);
-        if(result) {
+        if (result) {
           this.unplacedShips.splice(0, 1);
           break;
         }
@@ -311,7 +323,7 @@ export class Player {
 
   computerAttack() {
     const numOfCoordinates = this.attackCoordinates.length;
-    if(numOfCoordinates < 0) return;
+    if (numOfCoordinates < 0) return;
     this.shuffleList(this.attackCoordinates);
     return this.attackCoordinates.pop();
   }
