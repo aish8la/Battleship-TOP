@@ -225,3 +225,4 @@ export function updateDisplay() {
 }
 
 pubsub.subscribe("updateDisplay", updateDisplay);
+pubsub.subscribe("updateBoard", updateGameBoards);
